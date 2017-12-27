@@ -10,18 +10,20 @@ labyrinthe=[
 	["*",".",".","*"],
 	["*","*","X","*"]
 ]
+win=False
 
 def bas():
 	for i in range(len(labyrinthe)):
-		x = labyrinthe[i]
 		for a in range(len(x)):
-			if x[a] == "@":
+			if labyrinthe[i][a] == "@":
 				if labyrinthe[i+1][a] == "*":
 					return
-				else:
+				elif labyrinthe[i+1][a] == ".":
 					labyrinthe[i+1][a] = "@"
-					x[a] = "."
 					return
+				elif labyrinthe[i+1][a]=="X":
+					labyrinthe[i+1][a]="@"
+					win=True
 
 def droite():
 	for i in range(len(labyrinthe)):
@@ -58,6 +60,8 @@ def haut():
 
 
 
+
+
 cree_fenetre(800,600)
 
 framerate = 5
@@ -73,6 +77,9 @@ while True:
 		print(touche(ev))
 		if touche(ev) == "Down":
 			bas()
+			if win:
+				print("Gagner")
+				break
 		elif touche(ev) == "Right":
 			droite()
 		elif touche(ev) == "Left":
