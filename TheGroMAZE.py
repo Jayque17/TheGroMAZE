@@ -84,8 +84,14 @@ def haut():
 					labyrinthe[i][a] = "."
 					return True
 
+def affiche_mur():
+	for i in range(len(labyrinthe)):
+		for a in range(len(labyrinthe[i])):
+			if labyrinthe[i][a] == "*":
+				rectangle(ax = 20, ay = 40, bx = 60, by = 80, remplissage = 'grey')
 
-cree_fenetre(800,600)
+
+cree_fenetre(400,300)
 
 framerate = 5
 win = False
@@ -94,6 +100,7 @@ labyrinthe = lire_laby("labyrinthe.txt")
 
 while True:
 	print(labyrinthe)
+	affiche_mur()
 	mise_a_jour()
 	ev = donne_evenement()
 	ty = type_evenement(ev)
