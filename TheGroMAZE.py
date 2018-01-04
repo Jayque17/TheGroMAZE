@@ -84,15 +84,12 @@ def affiche_mur():
             if labyrinthe[i][a] == "*":
                 rectangle(ax = a*L + dx, ay = i*l + dy, bx = (a + 1)*L + dx, by = (i + 1)*l + dy, remplissage = 'grey')
 
-def affiche_perso():
+def affiche_perso(position_x, position_y):
     L = 25
     l = 25
     dx = 37.5
     dy = 37.5
-    for i in range(len(labyrinthe)):
-        for a in range(len(labyrinthe[i])):
-            if labyrinthe[i][a] == "@":
-                cercle(x = a*L + dx, y = i*l + dy, r = 10, remplissage = 'green')
+    cercle(x = position_x*L + dx, y = position_y*l + dy, r = 10, remplissage = 'green')
 
 def affiche_chemin():
     L = 25
@@ -103,6 +100,18 @@ def affiche_chemin():
         for a in range(len(labyrinthe[i])):
             if labyrinthe[i][a] == ".":
                 rectangle(ax = a*L + dx, ay = i*l + dy, bx = (a + 1)*L + dx, by = (i + 1)*l + dy, remplissage = 'white')
+
+def affiche_sortie():
+    L = 25
+    l = 25
+    dx = 25
+    dy = 25
+    for i in range(len(labyrinthe)):
+        for a in range(len(labyrinthe[i])):
+            if labyrinthe[i][a] == "X":
+                rectangle(ax = a*L + dx, ay = i*l + dy, bx = (a + 1)*L + dx, by = (i + 1)*l + dy, remplissage = 'red')
+
+
 
 
 
@@ -124,8 +133,9 @@ laby_console()
 
 while True:
     affiche_mur()
-    affiche_perso()
+    affiche_perso(position_x, position_y)
     affiche_chemin()
+    affiche_sortie()
     mise_a_jour()
     ev = donne_evenement()
     ty = type_evenement(ev)
