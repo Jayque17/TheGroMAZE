@@ -1,4 +1,5 @@
 from upemtk import *
+from tkinter import *
 from time import sleep
 
 """ Fonctions """
@@ -134,7 +135,7 @@ def affiche_vide():
     polygone([(0,0),(400,0),(400,300),(0,300)], couleur = "white", remplissage = 'white')
 
 
-def affiche_mur_de_face(position_x, position_y):
+def affiche_mur_en_face(position_x, position_y):
     if labyrinthe[position_y+1][position_x] == "*":
         polygone([(50,50), (350,50), (350,250), (50,250)], remplissage = 'grey')
 
@@ -154,18 +155,22 @@ def affiche_mur_a_droite_en_face(position_x, position_y):
 def affiche_mur_a_gauche(position_x, position_y):
     if labyrinthe[position_y][position_x+1] == "*":
         polygone([(0,0),(50,50),(50,250),(0,300)], remplissage = 'grey')
+    
     if labyrinthe[position_y+1][position_x+1] == "*":
         polygone([(50,50),(100,100),(100,200),(50,250)], remplissage = 'grey')
-    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x+1] == ".":
+    
+    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x+1] == "." and labyrinthe[position_y][position_x+1] != "*":
         polygone([(0,100),(50,50),(50,250),(0,200)], remplissage = 'grey')
 
         
 def affiche_mur_a_droite(position_x, position_y):
     if labyrinthe[position_y][position_x-1] == "*":
         polygone([(350,50),(400,0),(400,300),(350,250)], remplissage = 'grey')
+    
     if labyrinthe[position_y+1][position_x-1] == "*":
         polygone([(300,100),(350,50),(350,250),(300,200)], remplissage = 'grey')
-    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x-1] == ".":
+    
+    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x-1] == "." and labyrinthe[position_y][position_x-1] != "*":
         polygone([(350,50),(400,100),(400,200),(350,250)], remplissage = 'grey')
         
 
@@ -175,9 +180,9 @@ def affiche_mur_a_droite(position_x, position_y):
 
 """ Initialisation du jeu """
 
-cree_fenetre(400, 300)
+fenetre = cree_fenetre(400, 300)
 
-framerate = 50
+framerate = 10000
 
 win = False
 
@@ -206,15 +211,15 @@ while True:
     """ Affichage des objets """
 
     #affiche_mur2d()
-    #ffiche_perso2d(position_x, position_y)
+    #affiche_perso2d(position_x, position_y)
     #affiche_chemin2d()
     #affiche_sortie2d()
     affiche_vide()
     affiche_mur_a_gauche_en_face(position_x, position_y)
-    affiche_mur_a_droite_en_face(position_x, position_y)
     affiche_mur_a_gauche(position_x, position_y)
+    affiche_mur_a_droite_en_face(position_x, position_y)
     affiche_mur_a_droite(position_x, position_y)
-    affiche_mur_de_face(position_x, position_y)
+    affiche_mur_en_face(position_x, position_y)
     mise_a_jour()
 
 
