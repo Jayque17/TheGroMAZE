@@ -131,7 +131,7 @@ def affiche_sortie2d():
 """ Affichage du labyrinthe en vue subjective """
 
 def affiche_vide():
-    polygone([(0,0),(400,0),(400,300),(0,300)], couleur = "white", remplissage = 'white')
+    polygone([( 0 , 0 ),( 400 , 0 ),( 400 , 300 ),( 0 , 300 )], couleur = "white", remplissage = 'white')
 
 
 def affiche_mur_en_face(position_x, position_y):
@@ -140,12 +140,12 @@ def affiche_mur_en_face(position_x, position_y):
         n += 1
         
         if labyrinthe[position_y+n][position_x] == "*":
-            polygone([(25 + 25 * n/2, 20 + 18.75 * n/2), (375 - 25 * n/2, 20 + 18.75 * n/2),\
-             (375 - 25 * n/2, 280 - 18.75 * n/2), (25 + 25 * n/2, 280 - 18.75 * n/2)], remplissage = 'grey')
+            polygone([( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),\
+             ( 375 - 25 * n/2 , 280 - 18.75 * n/2 ),( 25 + 25 * n/2 , 280 - 18.75 * n/2 )], remplissage = 'grey')
 
         elif labyrinthe[position_y+n][position_x] == "X":
-            polygone([(25 + 25 * n/2, 20 + 18.75 * n/2), (375 - 25 * n/2, 20 + 18.75 * n/2),\
-             (375 - 25 * n/2, 280 - 18.75 * n/2), (25 + 25 * n/2, 280 - 18.75 * n/2)], couleur = 'white', remplissage = 'white')
+            polygone([( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),\
+             ( 375 - 25 * n/2 , 280 - 18.75 * n/2 ), ( 25 + 25 * n/2 , 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
             break
         else:
             pass
@@ -156,12 +156,12 @@ def affiche_mur_a_gauche_en_face(position_x, position_y):
     while labyrinthe[position_y+n][position_x+1] != "*":
         n += 1
         if labyrinthe[position_y+n][position_x+1] == "*":
-            polygone([(0, 20 + 18.75 * n/2 ),(25 + 25 * n/2, 20 + 18.75 * n/2),\
-                (25 + 25 * n/2, 280 - 18.75 * n/2),(0, 280 - 18.75 * n/2 )], remplissage = 'grey')
+            polygone([( 0 , 20 + 18.75 * n/2 ),( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),\
+                ( 25 + 25 * n/2 , 280 - 18.75 * n/2 ),( 0 , 280 - 18.75 * n/2 )], remplissage = 'grey')
 
         elif labyrinthe[position_y+n][position_x+1] == "X":
-            polygone([(0, 20 + 18.75 * n/2 ),(25 + 25 * n/2, 20 + 18.75 * n/2),\
-                (25 + 25 * n/2, 280 - 18.75 * n/2),(0, 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
+            polygone([( 0 , 20 + 18.75 * n/2 ),( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),\
+                ( 25 + 25 * n/2 , 280 - 18.75 * n/2 ),( 0 , 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
             break
 
         else :
@@ -172,12 +172,12 @@ def affiche_mur_a_droite_en_face(position_x, position_y):
     while labyrinthe[position_y+n][position_x-1] != "*":
         n += 1
         if labyrinthe[position_y+n][position_x-1] == "*":
-            polygone([(375 - 25 * n/2, 20 + 18.75 * n/2),(400, 20 + 18.75 * n/2),\
-                (400,  280 - 18.75 * n/2),(375 - 25 * n/2,  280 - 18.75 * n/2)], remplissage = 'grey')
+            polygone([( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),( 400 , 20 + 18.75 * n/2 ),\
+                ( 400 , 280 - 18.75 * n/2 ),( 375 - 25 * n/2 ,  280 - 18.75 * n/2 )], remplissage = 'grey')
 
         elif labyrinthe[position_y+n][position_x-1] == "X":
-            polygone([(375 - 25 * n/2, 20 + 18.75 * n/2),(400, 20 + 18.75 * n/2),\
-                (400,  280 - 18.75 * n/2),(375 - 25 * n/2,  280 - 18.75 * n/2)], couleur = 'white', remplissage = 'white')
+            polygone([( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),( 400 , 20 + 18.75 * n/2 ),\
+                ( 400 , 280 - 18.75 * n/2 ),( 375 - 25 * n/2 , 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
             break
         
         else :
@@ -191,10 +191,8 @@ def affiche_mur_a_gauche(position_x, position_y):
     while labyrinthe[position_y+n][position_x] != "*":
         n += 1
         if labyrinthe[position_y][position_x+1] == "*":
-            if labyrinthe[position_y+n][position_x+1] =="*":
-                polygone([(0 , 0 ),(25 + 25*n, 18.75 + 18.75*n),(25 + 25*n, 281.25 - 18.75*n),(0 , 300 )])
-            else:
-                n -= 1
+            if labyrinthe[position_y+n][position_x+1] == "*":
+                polygone([( 0 , 0 ),( 25 + 25*n , 18.75 + 18.75*n ),( 25 + 25*n , 281.25 - 18.75*n ),( 0 , 300 )], remplissage = 'grey')
         else:
             pass
  
@@ -205,10 +203,8 @@ def affiche_mur_a_droite(position_x, position_y):
     while labyrinthe[position_y+n][position_x] != "*":
         n += 1
         if labyrinthe[position_y][position_x-1] == "*":
-            if labyrinthe[position_y+n][position_x-1] =="*":
-                polygone([( 375 - 25*n, 18.75 + 18.75*n),(400, 0),(400, 300),( 375 - 25*n , 281.25 - 18.75*n )])
-            else:
-                n -= 1
+            if labyrinthe[position_y+n][position_x-1] == "*":
+                polygone([( 375 - 25*n , 18.75 + 18.75*n ),( 400 , 0 ),( 400 , 300 ),( 375 - 25*n , 281.25 - 18.75*n )], remplissage = 'grey')   
         else:
             pass
 
