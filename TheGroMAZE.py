@@ -1,5 +1,4 @@
 from upemtk import *
-from tkinter import *
 from time import sleep
 
 """ Fonctions """
@@ -136,43 +135,85 @@ def affiche_vide():
 
 
 def affiche_mur_en_face(position_x, position_y):
-    if labyrinthe[position_y+1][position_x] == "*":
-        polygone([(50,50), (350,50), (350,250), (50,250)], remplissage = 'grey')
+    n = 0
+    while labyrinthe[position_y+n][position_x] != "*":
+        n += 1
+        
+        if labyrinthe[position_y+n][position_x] == "*":
+            polygone([(25 + 25 * n/2, 20 + 18.75 * n/2), (375 - 25 * n/2, 20 + 18.75 * n/2),\
+             (375 - 25 * n/2, 280 - 18.75 * n/2), (25 + 25 * n/2, 280 - 18.75 * n/2)], remplissage = 'grey')
+
+        elif labyrinthe[position_y+n][position_x] == "X":
+            polygone([(25 + 25 * n/2, 20 + 18.75 * n/2), (375 - 25 * n/2, 20 + 18.75 * n/2),\
+             (375 - 25 * n/2, 280 - 18.75 * n/2), (25 + 25 * n/2, 280 - 18.75 * n/2)], couleur = 'white', remplissage = 'white')
+            break
+        else:
+            pass
 
 
 def affiche_mur_a_gauche_en_face(position_x, position_y):
-    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x+1] == "*" and labyrinthe[position_y][position_x+1] != "*" \
-    or labyrinthe[position_y+1][position_x] == "." and labyrinthe[position_y+1][position_x+1] == "*":
-        polygone([(0,50), (50,50), (50,250), (0,250)], remplissage = 'grey')
+    n = 0
+    while labyrinthe[position_y+n][position_x+1] != "*":
+        n += 1
+        if labyrinthe[position_y+n][position_x+1] == "*":
+            polygone([(0, 20 + 18.75 * n/2 ),(25 + 25 * n/2, 20 + 18.75 * n/2),\
+                (25 + 25 * n/2, 280 - 18.75 * n/2),(0, 280 - 18.75 * n/2 )], remplissage = 'grey')
 
+        elif labyrinthe[position_y+n][position_x+1] == "X":
+            polygone([(0, 20 + 18.75 * n/2 ),(25 + 25 * n/2, 20 + 18.75 * n/2),\
+                (25 + 25 * n/2, 280 - 18.75 * n/2),(0, 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
+            break
+
+        else :
+            pass
 
 def affiche_mur_a_droite_en_face(position_x, position_y):
-    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x-1] == "*" and labyrinthe[position_y][position_x-1] != "*"\
-    or labyrinthe[position_y+1][position_x] == "." and labyrinthe[position_y+1][position_x-1] == "*":
-        polygone([(350,50), (400,50), (400,250), (350,250)], remplissage = 'grey')
+    n = 0
+    while labyrinthe[position_y+n][position_x-1] != "*":
+        n += 1
+        if labyrinthe[position_y+n][position_x-1] == "*":
+            polygone([(375 - 25 * n/2, 20 + 18.75 * n/2),(400, 20 + 18.75 * n/2),\
+                (400,  280 - 18.75 * n/2),(375 - 25 * n/2,  280 - 18.75 * n/2)], remplissage = 'grey')
+
+        elif labyrinthe[position_y+n][position_x-1] == "X":
+            polygone([(375 - 25 * n/2, 20 + 18.75 * n/2),(400, 20 + 18.75 * n/2),\
+                (400,  280 - 18.75 * n/2),(375 - 25 * n/2,  280 - 18.75 * n/2)], couleur = 'white', remplissage = 'white')
+            break
+        
+        else :
+            pass
+
+
 
 
 def affiche_mur_a_gauche(position_x, position_y):
-    if labyrinthe[position_y][position_x+1] == "*":
-        polygone([(0,0),(50,50),(50,250),(0,300)], remplissage = 'grey')
-    
-    if labyrinthe[position_y+1][position_x+1] == "*":
-        polygone([(50,50),(100,100),(100,200),(50,250)], remplissage = 'grey')
-    
-    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x+1] == "." and labyrinthe[position_y][position_x+1] != "*":
-        polygone([(0,100),(50,50),(50,250),(0,200)], remplissage = 'grey')
+    n = 0
+    while labyrinthe[position_y+n][position_x] != "*":
+        n += 1
+        if labyrinthe[position_y][position_x+1] == "*":
+            if labyrinthe[position_y+n][position_x+1] =="*":
+                polygone([(0 , 0 ),(25 + 25*n, 18.75 + 18.75*n),(25 + 25*n, 281.25 - 18.75*n),(0 , 300 )])
+            else:
+                n -= 1
+        else:
+            pass
+ 
 
         
 def affiche_mur_a_droite(position_x, position_y):
-    if labyrinthe[position_y][position_x-1] == "*":
-        polygone([(350,50),(400,0),(400,300),(350,250)], remplissage = 'grey')
-    
-    if labyrinthe[position_y+1][position_x-1] == "*":
-        polygone([(300,100),(350,50),(350,250),(300,200)], remplissage = 'grey')
-    
-    if labyrinthe[position_y+1][position_x] == "*" and labyrinthe[position_y+1][position_x-1] == "." and labyrinthe[position_y][position_x-1] != "*":
-        polygone([(350,50),(400,100),(400,200),(350,250)], remplissage = 'grey')
-        
+    n = 0
+    while labyrinthe[position_y+n][position_x] != "*":
+        n += 1
+        if labyrinthe[position_y][position_x-1] == "*":
+            if labyrinthe[position_y+n][position_x-1] =="*":
+                polygone([( 375 - 25*n, 18.75 + 18.75*n),(400, 0),(400, 300),( 375 - 25*n , 281.25 - 18.75*n )])
+            else:
+                n -= 1
+        else:
+            pass
+
+ 
+
 
 
 """ Jeu """
@@ -214,6 +255,7 @@ while True:
     #affiche_perso2d(position_x, position_y)
     #affiche_chemin2d()
     #affiche_sortie2d()
+    
     affiche_vide()
     affiche_mur_a_gauche_en_face(position_x, position_y)
     affiche_mur_a_gauche(position_x, position_y)
