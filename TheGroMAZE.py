@@ -135,81 +135,104 @@ def affiche_vide():
 
 
 def affiche_mur_en_face(position_x, position_y):
+    
     n = 0
-    while labyrinthe[position_y+n][position_x] != "*":
+    while labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x] != "X":
         n += 1
-        
+
         if labyrinthe[position_y+n][position_x] == "*":
-            polygone([( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),\
-             ( 375 - 25 * n/2 , 280 - 18.75 * n/2 ),( 25 + 25 * n/2 , 280 - 18.75 * n/2 )], remplissage = 'grey')
+            polygone([( 17.2 * n , 12.9 * n ),( 400 - 17.2 * n , 12.9 * n ),\
+                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
 
         elif labyrinthe[position_y+n][position_x] == "X":
-            polygone([( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),\
-             ( 375 - 25 * n/2 , 280 - 18.75 * n/2 ), ( 25 + 25 * n/2 , 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
-            break
-        else:
-            pass
+            polygone([( 17.2 * n , 12.9 * n ),( 400 - 17.2 * n , 12.9 * n ),\
+                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = 'green')
 
 
-def affiche_mur_a_gauche_en_face(position_x, position_y):
+def affiche_mur_en_face_a_gauche(position_x, position_y):
+
     n = 0
-    while labyrinthe[position_y+n][position_x+1] != "*":
+    while labyrinthe[position_y+n][position_x+1] != "*" and labyrinthe[position_y+n][position_x+1] != "X":
         n += 1
+
         if labyrinthe[position_y+n][position_x+1] == "*":
-            polygone([( 0 , 20 + 18.75 * n/2 ),( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),\
-                ( 25 + 25 * n/2 , 280 - 18.75 * n/2 ),( 0 , 280 - 18.75 * n/2 )], remplissage = 'grey')
+            polygone([( 0 , 12.9 * n ),( 17.2 * n , 12.9 * n ),\
+                ( 17.2 * n , 300 - 12.9 * n ),( 0 , 300 - 12.9 * n )], remplissage = 'grey')
 
         elif labyrinthe[position_y+n][position_x+1] == "X":
-            polygone([( 0 , 20 + 18.75 * n/2 ),( 25 + 25 * n/2 , 20 + 18.75 * n/2 ),\
-                ( 25 + 25 * n/2 , 280 - 18.75 * n/2 ),( 0 , 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
-            break
+            polygone([( 0 , 12.9 * n ),( 200 - 17.2 * n , 12.9 * n ),\
+                ( 200 - 17.2 * n , 300 - 12.9 * n ),( 0 , 300 - 12.9 * n )], remplissage = 'green')
+            
+            polygone([( 200 - 17.2 * n , 12.9 * n ),( 17.2 * n , 12.9 * n ),\
+                ( 17.2 * n , 300 - 12.9 *n ),( 200 - 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
 
-        else :
-            pass
 
-def affiche_mur_a_droite_en_face(position_x, position_y):
+
+def affiche_mur_en_face_a_droite(position_x, position_y):
+
     n = 0
-    while labyrinthe[position_y+n][position_x-1] != "*":
+    while labyrinthe[position_y+n][position_x-1] != "*" and labyrinthe[position_y+n][position_x-1] != "X":
         n += 1
         if labyrinthe[position_y+n][position_x-1] == "*":
-            polygone([( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),( 400 , 20 + 18.75 * n/2 ),\
-                ( 400 , 280 - 18.75 * n/2 ),( 375 - 25 * n/2 ,  280 - 18.75 * n/2 )], remplissage = 'grey')
+            polygone([( 400 - 17.2 * n , 12.9 * n ),( 400 , 12.9 * n ),\
+                ( 400 , 300 - 12.9 * n ),( 400 - 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
 
         elif labyrinthe[position_y+n][position_x-1] == "X":
-            polygone([( 375 - 25 * n/2 , 20 + 18.75 * n/2 ),( 400 , 20 + 18.75 * n/2 ),\
-                ( 400 , 280 - 18.75 * n/2 ),( 375 - 25 * n/2 , 280 - 18.75 * n/2 )], couleur = 'white', remplissage = 'white')
-            break
-        
-        else :
-            pass
+            polygone([( 200 + 17.2 * n , 12.9 * n ),( 400 , 12.9 * n ),\
+                ( 400 , 300 - 12.9 * n ),( 200 + 17.2 * n , 300 - 12.9 * n )], remplissage = 'green')
+
+            polygone([( 400 - 17.2 * n , 12.9 * n ),( 200 + 17.2 * n , 12.9 * n )\
+                ,( 200 + 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
 
 
 
 
-def affiche_mur_a_gauche(position_x, position_y):
+
+
+def affiche_mur_a_gauche(position_x,position_y):
+
     n = 0
-    while labyrinthe[position_y+n][position_x] != "*":
-        n += 1
-        if labyrinthe[position_y][position_x+1] == "*":
-            if labyrinthe[position_y+n][position_x+1] == "*":
-                polygone([( 0 , 0 ),( 25 + 25*n , 18.75 + 18.75*n ),( 25 + 25*n , 281.25 - 18.75*n ),( 0 , 300 )], remplissage = 'grey')
+    while labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x+1] == "*" and labyrinthe[position_y+n][position_x] != "X"\
+    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x+1] == "X" and labyrinthe[position_y+n][position_x] != "X"\
+    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x+1] == "." and labyrinthe[position_y+n][position_x] != "X":
+        
+        if labyrinthe[position_y+n][position_x+1] == "*":
+            polygone([( 0 + 17.2 * n , 0 + 12.9 * n ),( 17.2 + 17.2 * n , 12.9 + 12.9 * n ),\
+                ( 17.2 + 17.2 * n , 287.1 - 12.9 * n ),( 0 + 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
+
+        elif labyrinthe[position_y+n][position_x+1] == "X":
+            polygone([( 0 + 17.2 * n , 0 + 12.9 * n ),( 17.2 + 17.2 * n , 12.9 + 12.9 * n ),\
+                ( 17.2 + 17.2 * n , 287.1 - 12.9 * n ),( 0 + 17.2 * n , 300 - 12.9 * n )], remplissage = 'green')
+        
         else:
             pass
- 
-
         
+        n += 1
+
+
+
+
+                                    
+
 def affiche_mur_a_droite(position_x, position_y):
-    n = 0
-    while labyrinthe[position_y+n][position_x] != "*":
-        n += 1
-        if labyrinthe[position_y][position_x-1] == "*":
-            if labyrinthe[position_y+n][position_x-1] == "*":
-                polygone([( 375 - 25*n , 18.75 + 18.75*n ),( 400 , 0 ),( 400 , 300 ),( 375 - 25*n , 281.25 - 18.75*n )], remplissage = 'grey')   
+
+    n = 0 
+    while labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x-1] == "*" and labyrinthe[position_y+n][position_x] != "X"\
+    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x-1] == "X" and labyrinthe[position_y+n][position_x] != "X"\
+    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x-1] == "." and labyrinthe[position_y+n][position_x] != "X":
+
+        if labyrinthe[position_y+n][position_x-1] == "*":
+            polygone([( 382.8 - 17.2 * n , 12.9 + 12.9 * n ),( 400 - 17.2 * n , 0 + 12.9 * n ),\
+                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 382.8 - 17.2 * n , 287.1 - 12.9 * n )], remplissage = 'grey')
+
+        elif labyrinthe[position_y+n][position_x-1] == "X":
+            polygone([( 382.8 - 17.2 * n , 12.9 + 12.9 * n ),( 400 - 17.2 * n , 0 + 12.9 * n ),\
+                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 382.8 - 17.2 * n , 287.1 - 12.9 * n )], remplissage = 'green')
+        
         else:
             pass
-
- 
-
+        
+        n += 1
 
 
 """ Jeu """
@@ -253,9 +276,9 @@ while True:
     #affiche_sortie2d()
     
     affiche_vide()
-    affiche_mur_a_gauche_en_face(position_x, position_y)
+    affiche_mur_en_face_a_gauche(position_x, position_y)
     affiche_mur_a_gauche(position_x, position_y)
-    affiche_mur_a_droite_en_face(position_x, position_y)
+    affiche_mur_en_face_a_droite(position_x, position_y)
     affiche_mur_a_droite(position_x, position_y)
     affiche_mur_en_face(position_x, position_y)
     mise_a_jour()
