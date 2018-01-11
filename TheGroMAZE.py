@@ -1,8 +1,11 @@
+""" Ce projet est réalisé par Julien NOEL TP6 et Clément LE HO TP6 """
+""" Amusez vous bien """
+
 from upemtk import *
 from time import sleep
 
-""" Fonctions """
 
+""" Fonctions """
 
 """ Lecture du fichier texte où est le labyrinthe """
 
@@ -86,14 +89,14 @@ def haut(personnage_x, personnage_y):
         return (True, personnage_x, personnage_y - 1)
 
 
-""" Affichage du labyrinthe dans la console pour qu'il soit plus lisible """
+""" Affichage plus lisible du labyrinthe dans la console """
 
 def affiche_laby_console():
     for ligne_laby in labyrinthe:
         print(ligne_laby)
 
 
-""" Affichage des éléments du labyrinthe en gaphique mais le labyrinthe est vu du dessus """
+""" Affichage des éléments du labyrinthe en gaphique mais le labyrinthe est en vu du dessus """
 
 def affiche_mur2d():
     L = 25
@@ -136,11 +139,18 @@ def affiche_sortie2d():
                 rectangle(ax = a*L + dx, ay = i*l + dy, bx = (a + 1)*L + dx, by = (i + 1)*l + dy, remplissage = 'red')
 
 
+
 """ Affichage du labyrinthe en vue subjective """
+
+
+""" Fonction qui évite que des polygones non voulu dans la fenêtre ne reste """
 
 def affiche_vide():
     efface_tout()
 
+
+
+""" Fonctions qui affichent les différents éléments du labyrinthe en vue subjective """
 
 def affiche_mur_en_face(personnage_x, personnage_y):
     
@@ -192,7 +202,9 @@ def affiche_mur_en_face_a_droite(personnage_x, personnage_y):
             affiche_mur(y - personnage_y, 'green')
                 
 
-            
+
+""" Fonctions pour les murs à qui sont à coté du personnage """
+
 def affiche_mur_a_gauche(personnage_x,personnage_y):
 
     def affiche_mur(n, couleur):
@@ -221,6 +233,7 @@ def affiche_mur_a_droite(personnage_x, personnage_y):
 
         elif labyrinthe[y][personnage_x-1] == "X":
             affiche_mur(y - personnage_y, 'green')
+
 
 
 """ Manipulation du labyrinthe """
@@ -259,10 +272,7 @@ def tourne_labyrinthe_a_droite():
 
 
 
-
-
 """ Jeu """
-
 
 """ Initialisation du jeu """
 
@@ -281,9 +291,11 @@ labyrinthe,largeur,hauteur = lire_laby("labyrinthe.txt")
 personnage_x, personnage_y = initialise_position_personnage()
 
 
+
 """ Affichage du labyrinthe dans la console """
 
 affiche_laby_console()
+
 
 
 """ Boucle principale """
@@ -291,7 +303,7 @@ affiche_laby_console()
 while True:
 
    
-    """ Affichage des objets """
+    """ Affichage des éléments du labyrinthe """
 
     #affiche_mur2d()
     #affiche_perso2d(personnage_x, personnage_y)
@@ -307,12 +319,15 @@ while True:
     mise_a_jour()
 
 
+
     """ Gestion des évènements """
 
     ev = donne_evenement()
     ty = type_evenement(ev)
+
     if ty == 'Quitte':
         break
+
     elif ty == "Touche":
         print(touche(ev))
 
@@ -357,11 +372,13 @@ while True:
             break
 
 
+
     """ Attente avant rafraîchissement """
 
     sleep(1 / framerate)
 
 
-    """ Fermeture et sortie """
+
+""" Fermeture et sortie """
 
 ferme_fenetre()
