@@ -7,82 +7,90 @@ from time import sleep
 """ Lecture du fichier texte où est le labyrinthe """
 
 def lire_laby(nom_de_fichier):
-    laby = open(nom_de_fichier,"r")
-    lignes = laby.readlines()
-    liste=[] 
-    for i in lignes :
-        l=[]
-        for a in i:
-            if a != "\n":
-                l.append(a)
-        liste.append(l)
-    laby.close()
-    return liste
+    fichier_laby = open(nom_de_fichier,"r")
+    lignes_fichier = fichier_laby.readlines()
+    laby = [] 
+    for ligne_fichier in lignes_fichier :
+        ligne_laby = []
+        for element in ligne_fichier:
+            if element != "\n":
+                ligne_laby.append(element)
+        laby.append(ligne_laby)
+    fichier_laby.close()
+    return laby,len(laby[0]),len(laby)
 
 
 """ Gestion des mouvements du personnage """
 
-def bas(position_x, position_y):
-    print (position_y,position_x)
-    if labyrinthe[position_y+1][position_x] == "*":
-        return (False, position_x, position_y)
-    elif labyrinthe[position_y+1][position_x] == ".":
-        labyrinthe[position_y+1][position_x] = "@"
-        labyrinthe[position_y][position_x]  = "."
-        return (False, position_x, position_y + 1)
-    elif labyrinthe[position_y+1][position_x] == "X":
-        labyrinthe[position_y+1][position_x] = "@"
-        labyrinthe[position_y][position_x] = "."
-        return (True, position_x, position_y + 1)
+def initialise_position_personnage():
+    for y in range(len(labyrinthe)):
+        for x in range(len(labyrinthe[y])):
+            if labyrinthe[y][x] == "@":
+                return x, y
 
 
-def droite(position_x, position_y):
-    print (position_y,position_x)
-    if labyrinthe[position_y][position_x+1] == "*":
-        return (False, position_x, position_y)
-    elif labyrinthe[position_y][position_x+1] == ".":
-        labyrinthe[position_y][position_x+1] = "@"
-        labyrinthe[position_y][position_x] = "."
-        return (False, position_x + 1, position_y)
-    elif labyrinthe[position_y][position_x+1] == "X":
-        labyrinthe[position_y][position_x+1]= "@"
-        labyrinthe[position_y][position_x] = "."
-        return (True, position_x + 1, position_y)
+
+def bas(personnage_x, personnage_y):
+    print (personnage_y,personnage_x)
+    if labyrinthe[personnage_y+1][personnage_x] == "*":
+        return (False, personnage_x, personnage_y)
+    elif labyrinthe[personnage_y+1][personnage_x] == ".":
+        labyrinthe[personnage_y+1][personnage_x] = "@"
+        labyrinthe[personnage_y][personnage_x]  = "."
+        return (False, personnage_x, personnage_y + 1)
+    elif labyrinthe[personnage_y+1][personnage_x] == "X":
+        labyrinthe[personnage_y+1][personnage_x] = "@"
+        labyrinthe[personnage_y][personnage_x] = "."
+        return (True, personnage_x, personnage_y + 1)
 
 
-def gauche(position_x, position_y):
-    print (position_y,position_x)
-    if labyrinthe[position_y][position_x-1] == "*":
-        return (False, position_x, position_y)
-    elif labyrinthe[position_y][position_x-1] == ".":
-        labyrinthe[position_y][position_x-1] = "@"
-        labyrinthe[position_y][position_x] = "."
-        return (False, position_x - 1, position_y)
-    elif labyrinthe[position_y][position_x-1] == "X":
-        labyrinthe[position_y][position_x-1]= "@"
-        labyrinthe[position_y][position_x] = "."
-        return (True, position_x - 1, position_y)
+def droite(personnage_x, personnage_y):
+    print (personnage_y,personnage_x)
+    if labyrinthe[personnage_y][personnage_x+1] == "*":
+        return (False, personnage_x, personnage_y)
+    elif labyrinthe[personnage_y][personnage_x+1] == ".":
+        labyrinthe[personnage_y][personnage_x+1] = "@"
+        labyrinthe[personnage_y][personnage_x] = "."
+        return (False, personnage_x + 1, personnage_y)
+    elif labyrinthe[personnage_y][personnage_x+1] == "X":
+        labyrinthe[personnage_y][personnage_x+1]= "@"
+        labyrinthe[personnage_y][personnage_x] = "."
+        return (True, personnage_x + 1, personnage_y)
+
+
+def gauche(personnage_x, personnage_y):
+    print (personnage_y,personnage_x)
+    if labyrinthe[personnage_y][personnage_x-1] == "*":
+        return (False, personnage_x, personnage_y)
+    elif labyrinthe[personnage_y][personnage_x-1] == ".":
+        labyrinthe[personnage_y][personnage_x-1] = "@"
+        labyrinthe[personnage_y][personnage_x] = "."
+        return (False, personnage_x - 1, personnage_y)
+    elif labyrinthe[personnage_y][personnage_x-1] == "X":
+        labyrinthe[personnage_y][personnage_x-1]= "@"
+        labyrinthe[personnage_y][personnage_x] = "."
+        return (True, personnage_x - 1, personnage_y)
 	
 
-def haut(position_x, position_y):
-    print (position_y,position_x)
-    if labyrinthe[position_y-1][position_x] == "*":
-        return (False, position_x, position_y)
-    elif labyrinthe[position_y-1][position_x] == ".":
-        labyrinthe[position_y-1][position_x] = "@"
-        labyrinthe[position_y][position_x]  = "."
-        return (False, position_x, position_y - 1)
-    elif labyrinthe[position_y-1][position_x] == "X":
-        labyrinthe[position_y-1][position_x] = "@"
-        labyrinthe[position_y][position_x] = "."
-        return (True, position_x, position_y - 1)
+def haut(personnage_x, personnage_y):
+    print (personnage_y,personnage_x)
+    if labyrinthe[personnage_y-1][personnage_x] == "*":
+        return (False, personnage_x, personnage_y)
+    elif labyrinthe[personnage_y-1][personnage_x] == ".":
+        labyrinthe[personnage_y-1][personnage_x] = "@"
+        labyrinthe[personnage_y][personnage_x]  = "."
+        return (False, personnage_x, personnage_y - 1)
+    elif labyrinthe[personnage_y-1][personnage_x] == "X":
+        labyrinthe[personnage_y-1][personnage_x] = "@"
+        labyrinthe[personnage_y][personnage_x] = "."
+        return (True, personnage_x, personnage_y - 1)
 
 
 """ Affichage du labyrinthe dans la console pour qu'il soit plus lisible """
 
-def laby_console():
-    for i in range(len(labyrinthe)):
-        print(labyrinthe[i])
+def affiche_laby_console():
+    for ligne_laby in labyrinthe:
+        print(ligne_laby)
 
 
 """ Affichage des éléments du labyrinthe en gaphique mais le labyrinthe est vu du dessus """
@@ -98,12 +106,12 @@ def affiche_mur2d():
                 rectangle(ax = a*L + dx, ay = i*l + dy, bx = (a + 1)*L + dx, by = (i + 1)*l + dy, remplissage = 'grey')
 
 
-def affiche_perso2d(position_x, position_y):
+def affiche_perso2d(personnage_x, personnage_y):
     L = 25
     l = 25
     dx = 37.5
     dy = 37.5
-    cercle(x = position_x*L + dx, y = position_y*l + dy, r = 10, remplissage = 'green')
+    cercle(x = personnage_x*L + dx, y = personnage_y*l + dy, r = 10, remplissage = 'green')
 
 
 def affiche_chemin2d():
@@ -131,108 +139,126 @@ def affiche_sortie2d():
 """ Affichage du labyrinthe en vue subjective """
 
 def affiche_vide():
-    polygone([( 0 , 0 ),( 400 , 0 ),( 400 , 300 ),( 0 , 300 )], couleur = "white", remplissage = 'white')
+    efface_tout()
 
 
-def affiche_mur_en_face(position_x, position_y):
+def affiche_mur_en_face(personnage_x, personnage_y):
     
-    n = 0
-    while labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x] != "X":
-        n += 1
+    def affiche_mur(n, couleur):
+         polygone([( 17.2 * n , 12.9 * n ),( 400 - 17.2 * n , 12.9 * n ),\
+                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = couleur)
+    
+    for n in range( 1 , hauteur - personnage_y ):
 
-        if labyrinthe[position_y+n][position_x] == "*":
-            polygone([( 17.2 * n , 12.9 * n ),( 400 - 17.2 * n , 12.9 * n ),\
-                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
+        if labyrinthe[personnage_y+n][personnage_x] == "*":
+            affiche_mur(n, 'grey')
+            return
 
-        elif labyrinthe[position_y+n][position_x] == "X":
-            polygone([( 17.2 * n , 12.9 * n ),( 400 - 17.2 * n , 12.9 * n ),\
-                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = 'green')
+        elif labyrinthe[personnage_y+n][personnage_x] == "X":
+            affiche_mur(n, 'green')
+            return
 
 
-def affiche_mur_en_face_a_gauche(position_x, position_y):
+def affiche_mur_en_face_a_gauche(personnage_x, personnage_y):
 
-    n = 0
-    while labyrinthe[position_y+n][position_x+1] != "*" and labyrinthe[position_y+n][position_x+1] != "X":
-        n += 1
+    def affiche_mur(n, couleur):
+        polygone([( 0 , 12.9 * n ),( 17.2 * n , 12.9 * n ),\
+                ( 17.2 * n , 300 - 12.9 * n ),( 0 , 300 - 12.9 * n )], remplissage = couleur )
 
-        if labyrinthe[position_y+n][position_x+1] == "*":
-            polygone([( 0 , 12.9 * n ),( 17.2 * n , 12.9 * n ),\
-                ( 17.2 * n , 300 - 12.9 * n ),( 0 , 300 - 12.9 * n )], remplissage = 'grey')
+    for y in reversed(range( personnage_y+1 , hauteur )):
 
-        elif labyrinthe[position_y+n][position_x+1] == "X":
-            polygone([( 0 , 12.9 * n ),( 200 - 17.2 * n , 12.9 * n ),\
-                ( 200 - 17.2 * n , 300 - 12.9 * n ),( 0 , 300 - 12.9 * n )], remplissage = 'green')
+        if labyrinthe[y][personnage_x+1] == "*":
+            affiche_mur(y - personnage_y, 'grey')
             
-            polygone([( 200 - 17.2 * n , 12.9 * n ),( 17.2 * n , 12.9 * n ),\
-                ( 17.2 * n , 300 - 12.9 *n ),( 200 - 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
+
+        elif labyrinthe[y][personnage_x+1] == "X":
+            affiche_mur(y - personnage_y, 'green')
+            
 
 
+def affiche_mur_en_face_a_droite(personnage_x, personnage_y):
 
-def affiche_mur_en_face_a_droite(position_x, position_y):
+    def affiche_mur(n, couleur):
+        polygone([( 400 - 17.2 * n , 12.9 * n ),( 400 , 12.9 * n ),\
+                ( 400 , 300 - 12.9 * n ),( 400 - 17.2 * n , 300 - 12.9 * n )], remplissage = couleur)
 
-    n = 0
-    while labyrinthe[position_y+n][position_x-1] != "*" and labyrinthe[position_y+n][position_x-1] != "X":
-        n += 1
-        if labyrinthe[position_y+n][position_x-1] == "*":
-            polygone([( 400 - 17.2 * n , 12.9 * n ),( 400 , 12.9 * n ),\
-                ( 400 , 300 - 12.9 * n ),( 400 - 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
+    for y in reversed(range( personnage_y+1 , hauteur )):
 
-        elif labyrinthe[position_y+n][position_x-1] == "X":
-            polygone([( 200 + 17.2 * n , 12.9 * n ),( 400 , 12.9 * n ),\
-                ( 400 , 300 - 12.9 * n ),( 200 + 17.2 * n , 300 - 12.9 * n )], remplissage = 'green')
+        if labyrinthe[y][personnage_x-1] == "*":
+            affiche_mur(y - personnage_y, 'grey')
+            
 
-            polygone([( 400 - 17.2 * n , 12.9 * n ),( 200 + 17.2 * n , 12.9 * n )\
-                ,( 200 + 17.2 * n , 300 - 12.9 * n ),( 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
+        elif labyrinthe[y][personnage_x-1] == "X":
+            affiche_mur(y - personnage_y, 'green')
+                
+
+            
+def affiche_mur_a_gauche(personnage_x,personnage_y):
+
+    def affiche_mur(n, couleur):
+        polygone([( 0 + 17.2 * n , 0 + 12.9 * n ),( 17.2 + 17.2 * n , 12.9 + 12.9 * n ),\
+                ( 17.2 + 17.2 * n , 287.1 - 12.9 * n ),( 0 + 17.2 * n , 300 - 12.9 * n )], remplissage = couleur )
+
+    for y in range(personnage_y , hauteur ):
+
+        if labyrinthe[y][personnage_x+1] == "*":
+            affiche_mur(y - personnage_y, 'grey')
+
+        elif labyrinthe[y][personnage_x+1] == "X":
+            affiche_mur(y - personnage_y, 'green')
 
 
+def affiche_mur_a_droite(personnage_x, personnage_y):
+
+    def affiche_mur(n, couleur):
+        polygone([( 382.8 - 17.2 * n , 12.9 + 12.9 * n ),( 400 - 17.2 * n , 0 + 12.9 * n ),\
+                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 382.8 - 17.2 * n , 287.1 - 12.9 * n )], remplissage = couleur )
+
+    for y in range(personnage_y , hauteur ):
+
+        if labyrinthe[y][personnage_x-1] == "*":
+            affiche_mur(y - personnage_y, 'grey')
+
+        elif labyrinthe[y][personnage_x-1] == "X":
+            affiche_mur(y - personnage_y, 'green')
 
 
+""" Manipulation du labyrinthe """
 
+def tourne_labyrinthe_a_gauche():
 
-def affiche_mur_a_gauche(position_x,position_y):
+    labyrinthe_tourne = []
 
-    n = 0
-    while labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x+1] == "*" and labyrinthe[position_y+n][position_x] != "X"\
-    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x+1] == "X" and labyrinthe[position_y+n][position_x] != "X"\
-    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x+1] == "." and labyrinthe[position_y+n][position_x] != "X":
+    for x in reversed(range(0, largeur )):
         
-        if labyrinthe[position_y+n][position_x+1] == "*":
-            polygone([( 0 + 17.2 * n , 0 + 12.9 * n ),( 17.2 + 17.2 * n , 12.9 + 12.9 * n ),\
-                ( 17.2 + 17.2 * n , 287.1 - 12.9 * n ),( 0 + 17.2 * n , 300 - 12.9 * n )], remplissage = 'grey')
+        ligne = []
 
-        elif labyrinthe[position_y+n][position_x+1] == "X":
-            polygone([( 0 + 17.2 * n , 0 + 12.9 * n ),( 17.2 + 17.2 * n , 12.9 + 12.9 * n ),\
-                ( 17.2 + 17.2 * n , 287.1 - 12.9 * n ),( 0 + 17.2 * n , 300 - 12.9 * n )], remplissage = 'green')
+        for y in range(0 , hauteur):
+            ligne.append(labyrinthe[y][x])
+
+        labyrinthe_tourne.append(ligne)
+
+    return labyrinthe_tourne, hauteur, largeur
+
+
+def tourne_labyrinthe_a_droite():
+
+    labyrinthe_tourne = []
+
+    for x in range(0, largeur ):
         
-        else:
-            pass
-        
-        n += 1
+        ligne = []
+
+        for y in reversed(range(0 , hauteur)):
+            ligne.append(labyrinthe[y][x])
+
+        labyrinthe_tourne.append(ligne)
+
+    return labyrinthe_tourne, hauteur, largeur
 
 
 
 
-                                    
-
-def affiche_mur_a_droite(position_x, position_y):
-
-    n = 0 
-    while labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x-1] == "*" and labyrinthe[position_y+n][position_x] != "X"\
-    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x-1] == "X" and labyrinthe[position_y+n][position_x] != "X"\
-    or labyrinthe[position_y+n][position_x] != "*" and labyrinthe[position_y+n][position_x-1] == "." and labyrinthe[position_y+n][position_x] != "X":
-
-        if labyrinthe[position_y+n][position_x-1] == "*":
-            polygone([( 382.8 - 17.2 * n , 12.9 + 12.9 * n ),( 400 - 17.2 * n , 0 + 12.9 * n ),\
-                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 382.8 - 17.2 * n , 287.1 - 12.9 * n )], remplissage = 'grey')
-
-        elif labyrinthe[position_y+n][position_x-1] == "X":
-            polygone([( 382.8 - 17.2 * n , 12.9 + 12.9 * n ),( 400 - 17.2 * n , 0 + 12.9 * n ),\
-                ( 400 - 17.2 * n , 300 - 12.9 * n ),( 382.8 - 17.2 * n , 287.1 - 12.9 * n )], remplissage = 'green')
-        
-        else:
-            pass
-        
-        n += 1
 
 
 """ Jeu """
@@ -242,25 +268,22 @@ def affiche_mur_a_droite(position_x, position_y):
 
 fenetre = cree_fenetre(400, 300)
 
-framerate = 10000
+framerate = 60
 
-win = False
+gagner = False
 
-labyrinthe = lire_laby("labyrinthe.txt")
+labyrinthe,largeur,hauteur = lire_laby("labyrinthe.txt")
+
 
 
 """ Création de variables prenant en compte la position du personnage et qui évitent de répéter cette boucle dans les fonctions """
 
-for i in range(len(labyrinthe)):
-    for a in range(len(labyrinthe[i])):
-            if labyrinthe[i][a] == "@":
-                position_y = i
-                position_x = a
+personnage_x, personnage_y = initialise_position_personnage()
 
 
 """ Affichage du labyrinthe dans la console """
 
-laby_console()
+affiche_laby_console()
 
 
 """ Boucle principale """
@@ -271,16 +294,16 @@ while True:
     """ Affichage des objets """
 
     #affiche_mur2d()
-    #affiche_perso2d(position_x, position_y)
+    #affiche_perso2d(personnage_x, personnage_y)
     #affiche_chemin2d()
     #affiche_sortie2d()
     
     affiche_vide()
-    affiche_mur_en_face_a_gauche(position_x, position_y)
-    affiche_mur_a_gauche(position_x, position_y)
-    affiche_mur_en_face_a_droite(position_x, position_y)
-    affiche_mur_a_droite(position_x, position_y)
-    affiche_mur_en_face(position_x, position_y)
+    affiche_mur_en_face_a_gauche(personnage_x, personnage_y)
+    affiche_mur_a_gauche(personnage_x, personnage_y)
+    affiche_mur_en_face_a_droite(personnage_x, personnage_y)
+    affiche_mur_a_droite(personnage_x, personnage_y)
+    affiche_mur_en_face(personnage_x, personnage_y)
     mise_a_jour()
 
 
@@ -294,31 +317,43 @@ while True:
         print(touche(ev))
 
         if touche(ev) == "Down" or touche(ev) == "z" :
-            win, position_x, position_y = bas(position_x, position_y)
-            print(win)
-            laby_console()
+            gagner, personnage_x, personnage_y = bas(personnage_x, personnage_y)
+            print(gagner)
+            affiche_laby_console()
 
         elif touche(ev) == "Right" or touche(ev) == "q" :
-            win, position_x, position_y = droite(position_x, position_y)
-            print(win)
-            laby_console()
+            gagner, personnage_x, personnage_y = droite(personnage_x, personnage_y)
+            print(gagner)
+            affiche_laby_console()
 
         elif touche(ev) == "Left" or touche(ev) == "d" :
-            win, position_x, position_y = gauche(position_x, position_y)
-            print(win)
-            laby_console()
+            gagner, personnage_x, personnage_y = gauche(personnage_x, personnage_y)
+            print(gagner)
+            affiche_laby_console()
 
         elif touche(ev) == "Up" or touche(ev) == "s" :
-            win, position_x, position_y = haut(position_x, position_y)
-            print(win)
-            laby_console()
+            gagner, personnage_x, personnage_y = haut(personnage_x, personnage_y)
+            print(gagner)
+            affiche_laby_console()
 
         elif touche(ev) == "Escape":
             break
-        
-        if win == True:
-            print("win")
-            laby_console()
+
+        elif touche(ev) == "e":
+            
+            labyrinthe, largeur, hauteur = tourne_labyrinthe_a_gauche()
+            personnage_x, personnage_y = initialise_position_personnage()
+            affiche_laby_console()
+
+        elif touche(ev) == "a":
+
+            labyrinthe, largeur, hauteur = tourne_labyrinthe_a_droite()
+            personnage_x, personnage_y = initialise_position_personnage()
+            affiche_laby_console()
+
+        if gagner == True:
+            print("gagner")
+            affiche_laby_console()
             break
 
 
