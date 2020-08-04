@@ -6,4 +6,4 @@ For load the game use :
 ```bash
 python3 TheGroMAZE.py
 ```
-Then enjoy.
+Then have fun.
